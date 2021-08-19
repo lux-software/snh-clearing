@@ -1,0 +1,4 @@
+
+/** GetClearingCdrsRequest */
+export interface GetClearingCdrsRequest {
+}

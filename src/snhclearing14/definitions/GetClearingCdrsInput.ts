@@ -1,0 +1,4 @@
+
+/** GetClearingCdrsInput */
+export interface GetClearingCdrsInput {
+}

@@ -1,0 +1,4 @@
+
+/** ConfirmClearingCdrsInput */
+export interface ConfirmClearingCdrsInput {
+}

@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions name="SNHClearing" targetNamespace="http://www.emobility-partner.de">
+    <wsdl:documentation> SNH Clearing Interface Version 1.4 </wsdl:documentation>
+    <wsdl:types>
+
+        <s:schema xmlns:tns="http://www.emobility-partner.de"
+            xmlns:s="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.emobility-partner.de">
+
+            <s:element name="GetClearingCdrsRequest">
+                <s:complexType>
+                    <s:annotation>
+                        <s:documentation>
+                Defines the GetClearingCdrsRequest
+                        </s:documentation>
+                    </s:annotation>
+                </s:complexType>
+            </s:element>
+
+            <s:element name="GetClearingCdrsResponse">
+                <s:complexType>
+                    <s:annotation>
+                        <s:documentation>
+                This result will be returned on a GetClearingCdrsRequest.
+                        </s:documentation>
+                    </s:annotation>
+                    <s:sequence>
+                        <s:element maxOccurs="1" minOccurs="1" name="result" type="tns:Result">
+                            <s:annotation>
+                                <s:documentation>
+                    This contains the result of GetCDRs.req
+                                </s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element maxOccurs="unbounded" minOccurs="0" name="cdrInfoArray" type="tns:Cdr">
+                            <s:annotation>
+                                <s:documentation>
+                    This contains the CDRs that have been sent towards the calling provider.
+                                </s:documentation>
+                            </s:annotation>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+
+            <s:element name="ConfirmClearingCdrsRequest">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element maxOccurs="unbounded" minOccurs="0" name="approved" type="tns:CdrId">
+                            <s:annotation>
+                                <s:documentation>
+                    This contains the Cdrs that have been approved.
+                                </s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element maxOccurs="unbounded" minOccurs="0" name="declined" type="tns:CdrId">
+                            <s:annotation>
+                                <s:documentation>
+                    This contains the Cdrs that have been declined.
+                                </s:documentation>
+                            </s:annotation>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+            <s:element name="ConfirmClearingCdrsResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element maxOccurs="1" minOccurs="1" name="result" type="tns:Result">
+                            <s:annotation>
+                                <s:documentation>
+                    This confirms receipt and wheter processed ok or not.
+                                </s:documentation>
+                            </s:annotation>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+
+
+            <s:complexType name="Result">
+                <s:annotation>
+                    <s:documentation>
+              General result
+                    </s:documentation>
+                </s:annotation>
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="resultCode" type="tns:ResultCode">
+                        <s:annotation>
+                            <s:documentation>
+                  Result Status like OK or ERROR
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="resultDescription" nillable="true">
+                        <s:annotation>
+                            <s:documentation>
+                  A human-readable result description -- only filled in case of error.
+                            </s:documentation>
+                        </s:annotation>
+                        <s:simpleType>
+                            <s:restriction base="s:string">
+                                <s:maxLength value="1000"/>
+                            </s:restriction>
+                        </s:simpleType>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+
+            <s:complexType name="ResultCode">
+                <s:sequence>
+                    <s:element name="resultCode">
+                        <s:annotation>
+                            <s:documentation>
+                  OK: Data accepted and processed;
+                  ERROR: Internal server error;
+                            </s:documentation>
+                        </s:annotation>
+                        <s:simpleType>
+                            <s:restriction base="s:string">
+                                <s:enumeration value="OK"/>
+                                <s:enumeration value="ERROR"/>
+                            </s:restriction>
+                        </s:simpleType>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+            <s:complexType name="Cdr">
+                <s:annotation>
+                    <s:documentation>Cdr</s:documentation>
+                </s:annotation>
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="CdrId" type="tns:CdrId">
+                        <s:annotation>
+                            <s:documentation>
+                  Alphanumeric, Charge Data Record number. Unique.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="TransactionId" type="s:integer">
+                        <s:annotation>
+                            <s:documentation>
+                  A maybe available Reference to the Transaction which produced this Cdr
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="TransparencyCode" type="s:string">
+                        <s:annotation>
+                            <s:documentation>
+                  The Code Identifying the CDR for the transparency software
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="TransparencyUrl" type="s:string">
+                        <s:annotation>
+                            <s:documentation>
+                  An Url to the transparency software where the CDR can be viewed and the encrypted CDR Data
+                  can be compared to the given values
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="evseId" type="tns:EvseId">
+                        <s:annotation>
+                            <s:documentation>
+                  Unique identifier for every EVSE.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="rfidId" type="tns:RfidId">
+                        <s:annotation>
+                            <s:documentation>
+                  Identifies a rfid-card.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="chargingstationName" type="tns:ChargingstationName">
+                        <s:annotation>
+                            <s:documentation>
+                  Identifies the Chargingstation
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="chargePointOperatorName" type="tns:ChargePointOperatorName">
+                        <s:annotation>
+                            <s:documentation>
+                  Identifies the ChargePointOperator
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="energyproviderName" type="tns:EnergyproviderName">
+                        <s:annotation>
+                            <s:documentation>
+                  Identifies the Energyprovider
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="emobilityProviderName" type="tns:EmobilityProviderName">
+                        <s:annotation>
+                            <s:documentation>
+                  Identifies the EmobilityProvider
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="clearingData" type="tns:ClearingData">
+                        <s:annotation>
+                            <s:documentation>
+                  This contains the data needed for clearing
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+            <s:simpleType name="CdrId">
+                <s:restriction base="s:string">
+                    <s:minLength value="1"/>
+                    <s:maxLength value="36"/>
+                    <s:pattern value="[0-9A-Z]{1,36}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:simpleType name="EvseId">
+                <s:annotation>
+                    <s:documentation>
+              The EVSE-ID is uniquely referencing one charge point.
+                    </s:documentation>
+                </s:annotation>
+                <s:restriction base="s:string">
+                    <s:pattern value="[A-Za-z]{2}\*[A-Za-z0-9]{3}\*[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}"/>
+                    <s:pattern value="[A-Za-z]{2}[A-Za-z0-9]{3}[Ee][A-Za-z0-9][A-Za-z0-9\*]{0,30}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:simpleType name="ChargingstationName">
+                <s:restriction base="s:string">
+                    <s:minLength value="1"/>
+                    <s:maxLength value="36"/>
+                    <s:pattern value="[0-9A-Za-z]{1,19}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:simpleType name="ChargePointOperatorName">
+                <s:restriction base="s:string">
+                    <s:minLength value="1"/>
+                    <s:maxLength value="36"/>
+                    <s:pattern value="[A-Z_-]{1,36}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:simpleType name="EnergyproviderName">
+                <s:restriction base="s:string">
+                    <s:minLength value="1"/>
+                    <s:maxLength value="36"/>
+                    <s:pattern value="[A-Z_-]{1,36}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:simpleType name="EmobilityProviderName">
+                <s:restriction base="s:string">
+                    <s:minLength value="1"/>
+                    <s:maxLength value="36"/>
+                    <s:pattern value="[A-Z_-]{1,36}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:simpleType name="RfidId">
+                <s:restriction base="s:string">
+                    <s:minLength value="1"/>
+                    <s:maxLength value="36"/>
+                    <s:pattern value="[A-Za-z0-9]{1,36}"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:complexType name="LocalDateTimeType">
+                <s:annotation>
+                    <s:documentation>
+              Format is according to ISO8601 UTC + Offset. The field takes 25 alphanumeric characters
+                    </s:documentation>
+                </s:annotation>
+                <s:sequence>
+                    <s:element name="LocalDateTime">
+                        <s:simpleType>
+                            <s:restriction base="s:string">
+                                <s:length value="25"/>
+                                <s:whiteSpace value="collapse"/>
+                                <s:pattern value="(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d):(\d\d)([+\-]\d\d):(\d\d)"/>
+                            </s:restriction>
+                        </s:simpleType>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+            <s:complexType name="ClearingData">
+                <s:annotation>
+                    <s:documentation>
+              Format is according to ISO8601 UTC + Offset. The field takes 25 alphanumeric characters
+                    </s:documentation>
+                </s:annotation>
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="startDateTime" type="tns:LocalDateTimeType">
+                        <s:annotation>
+                            <s:documentation>
+                  Start date and time of charge session
+                  (authentication with the RFID badge). Local time
+                  of the charge point is used.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="endDateTime" type="tns:LocalDateTimeType">
+                        <s:annotation>
+                            <s:documentation>
+                  End date and time of the charge session (log-out with the RFID badge or disconnect). Local time
+                  of the charge point is used.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="meterStart" type="s:decimal">
+                        <s:annotation>
+                            <s:documentation>
+                  Meterstart in Wh
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="meterEnd" type="s:decimal">
+                        <s:annotation>
+                            <s:documentation>
+                  Meterend in Wh
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="1" name="tarifInfo" type="tns:TarifInfo">
+                        <s:annotation>
+                            <s:documentation>
+                  Meterend in
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+            <s:complexType name="TarifInfo">
+                <s:annotation>
+                    <s:documentation>
+              Information concerning the used Tarif
+                    </s:documentation>
+                </s:annotation>
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="1" name="uniqueTarifIdentifier" type="s:string">
+                        <s:annotation>
+                            <s:documentation>
+                  consumption price in Euro per kwh
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="consumptionPrice" type="tns:Amount">
+                        <s:annotation>
+                            <s:documentation>
+                  consumption price in Euro per kwh
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="durationInfo" type="tns:DurationInfo">
+                        <s:annotation>
+                            <s:documentation>
+                  duration related price info
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="sessionPrice" type="tns:Amount">
+                        <s:annotation>
+                            <s:documentation>
+                  session price in Euro per session
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="additionalInfo" type="s:string">
+                        <s:annotation>
+                            <s:documentation>
+                  AdditonalInfo like a tarifname which can be translated into tarifinfo, if the given fields are not sufficient.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+            <s:complexType name="DurationInfo">
+                <s:annotation>
+                    <s:documentation>
+              Information concerning durationbased tarif information
+                    </s:documentation>
+                </s:annotation>
+                <s:sequence>
+                    <s:element maxOccurs="1" minOccurs="0" name="durationPrice" type="tns:Amount">
+                        <s:annotation>
+                            <s:documentation>
+                  consumption price in Euro per Duration Unit
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element maxOccurs="1" minOccurs="0" name="durationUnit" type="tns:DurationUnit">
+                        <s:annotation>
+                            <s:documentation>
+                  Duration Unit.
+                            </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+            <s:simpleType name="Amount">
+                <s:annotation>
+                    <s:documentation>
+              Type for Priceamounts
+                    </s:documentation>
+                </s:annotation>
+                <s:restriction base="s:decimal">
+                    <s:totalDigits value="8"/>
+                    <s:fractionDigits value="3"/>
+                </s:restriction>
+            </s:simpleType>
+
+            <s:complexType name="DurationUnit">
+                <s:sequence>
+                    <s:element name="DurationUnit">
+                        <s:simpleType>
+                            <s:annotation>
+                                <s:documentation>
+                    minute; Price is per minute
+                    15minutes; Price is per 15 minute
+                    30minutes; Price is per 30 minute
+                    hour; Price is per hour
+                                </s:documentation>
+                            </s:annotation>
+                            <s:restriction base="s:string">
+                                <s:enumeration value="minute"/>
+                                <s:enumeration value="15minutes"/>
+                                <s:enumeration value="30minutes"/>
+                                <s:enumeration value="hour"/>
+                            </s:restriction>
+                        </s:simpleType>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="GetClearingCdrsOutput">
+        <wsdl:part element="tns:GetClearingCdrsResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetClearingCdrsInput">
+        <wsdl:part element="tns:GetClearingCdrsRequest" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ConfirmClearingCdrsInput">
+        <wsdl:part element="tns:ConfirmClearingCdrsRequest" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="ConfirmClearingCdrsOutput">
+        <wsdl:part element="tns:ConfirmClearingCdrsResponse" name="parameters"></wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="snh-clearing_1.4">
+        <wsdl:documentation> SNH-Clearing Version 1.4 Interface </wsdl:documentation>
+        <wsdl:operation name="GetClearingCdrs">
+            <wsdl:documentation> Get relevant Cdrs from SNH Backend </wsdl:documentation>
+            <wsdl:input message="tns:GetClearingCdrsInput"></wsdl:input>
+            <wsdl:output message="tns:GetClearingCdrsOutput"></wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ConfirmClearingCdrs">
+            <wsdl:documentation>
+Confirm receipt of Cdrs. State Wheter they are accepted or declined.
+            </wsdl:documentation>
+            <wsdl:input message="tns:ConfirmClearingCdrsInput"></wsdl:input>
+            <wsdl:output message="tns:ConfirmClearingCdrsOutput"></wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="snh-clearing_1.4" type="tns:snh-clearing_1.4">
+        <wsdl:documentation> SNH-Clearing Version 1.4 Interface </wsdl:documentation>
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetClearingCdrs">
+            <soap:operation soapAction="https://www.emobility-partner.de/services/clearing/v1.4/GetClearingCdrs"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ConfirmClearingCdrs">
+            <soap:operation soapAction="https://www.emobility-partner.de/services/clearing/v1.4/ConfirmClearingCdrs"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="snh-clearing">
+        <wsdl:documentation> SNH Clearing Interface </wsdl:documentation>
+        <wsdl:port binding="tns:snh-clearing_1.4" name="snh_prod-System">
+            <wsdl:documentation> Prod System Endpoint </wsdl:documentation>
+            <soap:address location="https://www.emobility-partner.de/services/clearing/v1.4"/>
+        </wsdl:port>
+        <wsdl:port binding="tns:snh-clearing_1.4" name="snh_int-System">
+            <wsdl:documentation> Integration System Endpoint </wsdl:documentation>
+            <soap:address location="https://int.emobility-partner.de/services/clearing/v1.4"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
