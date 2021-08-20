@@ -7,7 +7,7 @@ import { DurationInfo } from "./DurationInfo";
  */
 export interface TarifInfo {
     /** s:string */
-    uniqueTarifIdentifier?: string;
+    uniqueTarifIdentifier: string;
     /** Amount|s:decimal|totalDigits,fractionDigits */
     consumptionPrice?: string;
     /** durationInfo */
