@@ -7,7 +7,7 @@ import { DurationUnit } from "./DurationUnit";
  */
 export interface DurationInfo {
     /** Amount|s:decimal|totalDigits,fractionDigits */
-    durationPrice?: string;
+    durationPrice: string;
     /** durationUnit */
-    durationUnit?: DurationUnit;
+    durationUnit: DurationUnit;
 }
