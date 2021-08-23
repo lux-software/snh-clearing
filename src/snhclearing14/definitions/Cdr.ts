@@ -7,9 +7,9 @@ import { ClearingData } from "./ClearingData";
  */
 export interface Cdr {
     /** CdrId|s:string|minLength,maxLength,pattern */
-    CdrId?: string;
+    CdrId: string;
     /** s:integer */
-    TransactionId?: string;
+    TransactionId?: number;
     /** s:string */
     TransparencyCode?: string;
     /** s:string */
