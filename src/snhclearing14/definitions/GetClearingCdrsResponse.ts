@@ -1,10 +1,10 @@
 import { Result } from "./Result";
-import { CdrInfoArray } from "./CdrInfoArray";
+import { Cdr } from "./Cdr";
 
 /** GetClearingCdrsResponse */
 export interface GetClearingCdrsResponse {
     /** result */
     result?: Result;
     /** cdrInfoArray[] */
-    cdrInfoArray?: Array<CdrInfoArray>;
+    cdrInfoArray?: Array<Cdr>;
 }

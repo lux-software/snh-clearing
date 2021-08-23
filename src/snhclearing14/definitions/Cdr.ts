@@ -5,7 +5,7 @@ import { ClearingData } from "./ClearingData";
  * @targetNSAlias `tns`
  * @targetNamespace `http://www.emobility-partner.de`
  */
-export interface CdrInfoArray {
+export interface Cdr {
     /** CdrId|s:string|minLength,maxLength,pattern */
     CdrId?: string;
     /** s:integer */

@@ -2,7 +2,7 @@ export { GetClearingCdrsRequest } from "./definitions/GetClearingCdrsRequest";
 export { GetClearingCdrsResponse } from "./definitions/GetClearingCdrsResponse";
 export { Result } from "./definitions/Result";
 export { ResultCode } from "./definitions/ResultCode";
-export { CdrInfoArray } from "./definitions/CdrInfoArray";
+export { Cdr } from "./definitions/Cdr";
 export { ClearingData } from "./definitions/ClearingData";
 export { StartDateTime } from "./definitions/StartDateTime";
 export { TarifInfo } from "./definitions/TarifInfo";

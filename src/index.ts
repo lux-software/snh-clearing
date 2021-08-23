@@ -35,4 +35,15 @@ class SNHClearing {
 }
 
 export default new SNHClearing()
-
+export { GetClearingCdrsRequest } from './snhclearing14'
+export { GetClearingCdrsResponse } from './snhclearing14'
+export { Result } from './snhclearing14'
+export { ResultCode } from './snhclearing14'
+export { Cdr } from './snhclearing14'
+export { ClearingData } from './snhclearing14'
+export { StartDateTime } from './snhclearing14'
+export { TarifInfo } from './snhclearing14'
+export { DurationInfo } from './snhclearing14'
+export { DurationUnit } from './snhclearing14'
+export { ConfirmClearingCdrsRequest } from './snhclearing14'
+export { ConfirmClearingCdrsResponse } from './snhclearing14'
