@@ -1,8 +1,7 @@
 {
   "name": "@lux-software/snh-clearing",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "./lib/cjs/index.js",
-
   "module": "./lib/esm/index.js",
   "files": [
     "lib/"
@@ -10,7 +9,7 @@
   "scripts": {
     "clean": "rimraf lib/",
     "copy-files": "copyfiles -u 1 spec/**/*.wsdl lib/spec",
-    "tsc":" tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "tsc": " tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "build": "npm run clean && npm run copy-files && npm run tsc",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
