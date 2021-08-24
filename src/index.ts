@@ -17,8 +17,6 @@ class SNHClearing {
     }): Promise<SnhClearing14Client> {
         const filepath = await fs.realpath(__filename)
         const spec = path.join(path.dirname(filepath), '../spec/snh-clearing-1.4.wsdl');
-        console.log(spec);
-
         const client = await createClientAsync(spec)
         client.setSecurity(new BasicAuthSecurity(credentials.username, credentials.password))
         client.setEndpoint(this.url(env, url))
