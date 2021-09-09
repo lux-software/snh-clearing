@@ -1,6 +1,6 @@
 {
   "name": "@lux-software/snh-clearing",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "files": [
@@ -19,7 +19,7 @@
   "author": "Tobias Lindener",
   "license": "MIT",
   "dependencies": {
-    "soap": "^0.40.0"
+    "soap": "^0.42.0"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1",

@@ -12,9 +12,9 @@ export interface ClearingData {
     /** endDateTime */
     endDateTime: StartDateTime;
     /** s:decimal */
-    meterStart: string;
+    meterStart: number;
     /** s:decimal */
-    meterEnd: string;
+    meterEnd: number;
     /** tarifInfo */
     tarifInfo: TarifInfo;
 }
